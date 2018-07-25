@@ -1,0 +1,20 @@
+.inputContainer {
+  width: 21%;
+  margin: 10px;
+}
+
+.mainInputContainer {
+  width: 100%;
+  background-color: burlywood;
+  display: inline-flex;
+}
+
+#objInfoTable
+{
+  margin: 10px 0 0 40px;
+}
+
+th {
+  width: 21%;
+  margin: 10px;
+}
