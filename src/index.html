@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  
+
   <div class="mainInputContainer">
     <div class="inputContainer">
       <input class="input" id="objName" type="text" placeholder="Object name">
@@ -26,20 +26,52 @@
       <input class="input" id="resPerson" type="text" placeholder="Responsible person">
     </div>
     <div class="inputContainer">
-        <button class="button" id="submitObjData">Submit entries</button>
-      </div>
+      <button class="button" id="submitObjData">Submit entries</button>
+    </div>
   </div>
   <table id="objInfoTable">
-      <thead>
-        <tr>
-          <th>Object name</th>
-          <th>Object address</th>
-          <th>Company name</th>
-          <th>Responsible person</th>
-        </tr>
-      </thead>
-    </table>
-
+    <thead>
+      <tr>
+        <th class="objInfo">Object name</th>
+        <th class="objInfo">Object address</th>
+        <th class="objInfo">Company name</th>
+        <th class="objInfo">Responsible person</th>
+      </tr>
+    </thead>
+  </table>
+  <h3 class="title is-3">Estimate</h3>
+  <div class="mainInputContainer">
+    <div class="inputContainer">
+      <input class="input" id="itemName" type="text" placeholder="Item Name">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="itemCode" type="text" placeholder="Item Code">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="itemDimension" type="text" placeholder="Item Dimension">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="itemQuantity" type="number" placeholder="Item Quantity">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="itemPrice" type="number" placeholder="Item Price">
+    </div>
+    <div class="inputContainer">
+      <button class="button" id="submitItemData">Submit Item</button>
+    </div>
+  </div>
+  <table id="itemTable">
+    <thead>
+      <tr>
+        <th class="itemInfo">Item Name</th>
+        <th class="itemInfo">Item Code</th>
+        <th class="itemInfo">Item Dimension</th>
+        <th class="itemInfo">Item Quantity</th>
+        <th class="itemInfo">Item Price</th>
+        <th class="itemInfo">Total Price</th>
+      </tr>
+    </thead>
+  </table>
 
   <script src="index.js"></script>
 </body>

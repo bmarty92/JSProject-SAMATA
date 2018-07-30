@@ -9,12 +9,20 @@
   display: inline-flex;
 }
 
-#objInfoTable
-{
+#objInfoTable {
   margin: 10px 0 0 40px;
 }
 
-th {
+#itemTable {
+  margin: 10px 0 0 40px;
+}
+
+th.objInfo {
   width: 21%;
+  margin: 10px;
+}
+
+th.itemInfo { 
+  width: 18%;
   margin: 10px;
 }
