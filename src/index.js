@@ -42,12 +42,9 @@ const createItemInfo = () => {
   if (selectedTbody) {
     console.log('in if');
     selectedTbody.innerHTML = '';
-    // selectedTfoot.innerHTML = '';
   } else {
     const tableBody = document.createElement('tbody');
-    // const tableFooter = document.createElement('tfoot');
     document.querySelector('#itemTable').appendChild(tableBody);
-    // document.querySelector('#itemTable').appendChild(tableFooter);
   }
   if (!existingItem) {
     itemInfoArray.push({
@@ -60,7 +57,6 @@ const createItemInfo = () => {
     });
   }
   if (selectedTfoot) {
-    console.log('in if 2');
     selectedTfoot.innerHTML = '';
   }
   const tableFooter = document.createElement('tfoot');
@@ -68,6 +64,7 @@ const createItemInfo = () => {
   const wholePriceTextTd = document.createElement('td');
   const wholePriceNumberTd = document.createElement('td');
   wholePriceTextTd.innerHTML = 'All price';
+  wholePriceNumberTd.innerHTML = itemInfoArray.reduce((result, value) => result + value.totalPrice , 0);
   tableFooterRow.appendChild(wholePriceTextTd);
   tableFooterRow.appendChild(wholePriceNumberTd);
   document.querySelector('#itemTable').appendChild(tableFooter);
