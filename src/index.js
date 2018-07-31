@@ -1,51 +1,73 @@
 const mainInfoArray = [];
 const itemInfoArray = [];
+
+const select = selector => document.querySelector(selector);
+
+const createElement = ({
+  tag,
+  innerHTML = '',
+}) => {
+  const element = document.createElement(tag);
+  element.innerHTML = innerHTML;
+  return element;
+};
+
+const drawMainInfo = () => {
+  mainInfoArray.forEach((element, index) => {
+    const tableBody = createElement({
+      tag: 'tbody',
+    });
+    const tableRow = createElement({
+      tag: 'tr',
+    });
+    const values = Object.values(element);
+    values.forEach((value) => {
+      tableRow.appendChild(createElement({
+        tag: 'td',
+        innerHTML: value,
+      }));
+    });
+
+    select('#objInfoTable').appendChild(tableBody).appendChild(tableRow);
+  });
+};
+
 const createMainInfo = () => {
-  const objName = document.getElementById('objName').value;
-  const objAddress = document.getElementById('objAddress').value;
-  const companyName = document.getElementById('companyName').value;
-  const resPerson = document.getElementById('resPerson').value;
+  const objName = select('#objName').value;
+  const objAddress = select('#objAddress').value;
+  const companyName = select('#companyName').value;
+  const resPerson = select('#resPerson').value;
   mainInfoArray.push({
     objectName: objName,
     objectAddress: objAddress,
     nameOfCompany: companyName,
     responsiblePerson: resPerson,
   });
-  mainInfoArray.forEach((element, index) => {
-    const tableBody = document.createElement('tbody');
-    const tableRow = document.createElement('tr');
-    const objNameTd = document.createElement('td');
-    const objAddressTd = document.createElement('td');
-    const companyNameTd = document.createElement('td');
-    const resPersonTd = document.createElement('td');
-    objNameTd.innerHTML = element.objectName;
-    objAddressTd.innerHTML = element.objectAddress;
-    companyNameTd.innerHTML = element.nameOfCompany;
-    resPersonTd.innerHTML = element.responsiblePerson;
-    tableRow.appendChild(objNameTd);
-    tableRow.appendChild(objAddressTd);
-    tableRow.appendChild(companyNameTd);
-    tableRow.appendChild(resPersonTd);
-    document.querySelector('#objInfoTable').appendChild(tableBody).appendChild(tableRow);
-  });
+  drawMainInfo();
 };
-const createItemInfo = () => {
-  const itemName = document.getElementById('itemName').value;
-  const itemCode = document.getElementById('itemCode').value;
-  const itemDimension = document.getElementById('itemDimension').value;
-  const itemQuantity = document.getElementById('itemQuantity').value;
-  const itemPrice = document.getElementById('itemPrice').value;
-  const existingItem = itemInfoArray.some(item => item.nameOfItem === itemName && item.codeOfItem === itemCode);
-  const selectedTbody = document.querySelector('#itemTable tbody');
-  const selectedTfoot = document.querySelector('#itemTable tfoot');
 
+const createItemTable = () => {
+  const selectedTbody = select('#itemTable tbody');
   if (selectedTbody) {
-    console.log('in if');
     selectedTbody.innerHTML = '';
   } else {
     const tableBody = document.createElement('tbody');
-    document.querySelector('#itemTable').appendChild(tableBody);
+    select('#itemTable').appendChild(tableBody);
   }
+};
+const clearItemFooter =() => {
+  const selectedTfoot = select('#itemTable tfoot');
+  if (selectedTfoot) {
+    selectedTfoot.innerHTML = '';
+  } 
+}
+const createItemInfo = () => {
+  const itemName = select('#itemName').value;
+  const itemCode = select('#itemCode').value;
+  const itemDimension = select('#itemDimension').value;
+  const itemQuantity = select('#itemQuantity').value;
+  const itemPrice = select('#itemPrice').value;
+  const existingItem = itemInfoArray.some(item => item.nameOfItem === itemName && item.codeOfItem === itemCode);
   if (!existingItem) {
     itemInfoArray.push({
       nameOfItem: itemName,
@@ -55,31 +77,33 @@ const createItemInfo = () => {
       priceOfItem: itemPrice,
       totalPrice: itemQuantity * itemPrice,
     });
-  }
-  if (selectedTfoot) {
-    selectedTfoot.innerHTML = '';
-  }
-  const tableFooter = document.createElement('tfoot');
-  const tableFooterRow = document.createElement('tr');
-  const wholePriceTextTd = document.createElement('td');
-  const wholePriceNumberTd = document.createElement('td');
+    drawItemInfo();
+  };
+}
+const drawItemInfo = () => {
+
+  createItemTable();
+  clearItemFooter();
+
+  const tableFooter = createElement({tag:'tfoot'});
+  const tableFooterRow = createElement({tag:'tr'});  
+  const wholePriceTextTd = createElement({tag:'td'});  
+  const wholePriceNumberTd = createElement({tag:'td'});  
   wholePriceTextTd.innerHTML = 'All price';
-  wholePriceNumberTd.innerHTML = itemInfoArray.reduce((result, value) => result + value.totalPrice , 0);
+  wholePriceNumberTd.innerHTML = itemInfoArray.reduce((result, value) => result + value.totalPrice, 0);
   tableFooterRow.appendChild(wholePriceTextTd);
   tableFooterRow.appendChild(wholePriceNumberTd);
-  document.querySelector('#itemTable').appendChild(tableFooter);
-  document.querySelector('#itemTable tfoot').appendChild(tableFooterRow);
-
-  console.log(itemInfoArray.length);
+  select('#itemTable').appendChild(tableFooter);
+  select('#itemTable tfoot').appendChild(tableFooterRow);
 
   itemInfoArray.forEach((element, index) => {
-    const tableRow = document.createElement('tr');
-    const itemNameTd = document.createElement('td');
-    const itemCodeTd = document.createElement('td');
-    const itemDimensionTd = document.createElement('td');
-    const itemQuantityTd = document.createElement('td');
-    const itemPriceTd = document.createElement('td');
-    const totalPriceTd = document.createElement('td');
+    const tableRow = createElement({tag:'tr'});
+    const itemNameTd = createElement({tag:'td'});
+    const itemCodeTd = createElement({tag:'td'});
+    const itemDimensionTd = createElement({tag:'td'});
+    const itemQuantityTd = createElement({tag:'td'});
+    const itemPriceTd = createElement({tag:'td'});
+    const totalPriceTd = createElement({tag:'td'});
 
     itemNameTd.innerHTML = element.nameOfItem;
     itemCodeTd.innerHTML = element.codeOfItem;
@@ -93,13 +117,9 @@ const createItemInfo = () => {
     tableRow.appendChild(itemQuantityTd);
     tableRow.appendChild(itemPriceTd);
     tableRow.appendChild(totalPriceTd);
-
-    document.querySelector('#itemTable tbody').appendChild(tableRow);
-
+    select('#itemTable tbody').appendChild(tableRow);
   });
-  console.log(itemInfoArray);
 };
-
 
 function starterFunction(action) {
   switch (action) {
@@ -111,15 +131,13 @@ function starterFunction(action) {
     case 'submitItemData':
       createItemInfo();
       break;
-
+    case 'submitMonday':
+      createMondayTable();
+      break;
     default:
       break;
   }
 }
-
-
-
-
 
 document.querySelectorAll('button').forEach((button) => {
   button.addEventListener('click', (e) => {
