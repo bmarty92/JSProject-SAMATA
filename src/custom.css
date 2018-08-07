@@ -17,7 +17,6 @@
 #itemTable {
   margin: 10px 0 0 40px;
   border: 2px solid black;
-
 }
 
 th.objInfo {
@@ -26,7 +25,7 @@ th.objInfo {
   border: 2px solid black;
 }
 
-th.itemInfo { 
+th.itemInfo {
   width: 18%;
   margin: 10px;
   border: 2px solid black;
@@ -34,4 +33,19 @@ th.itemInfo {
 
 tr td {
   border: 2px solid black;
+}
+
+#tableContainer table,
+tr,
+th,
+td {
+  border: 2px solid black;
+  margin-top: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+#tableContainer {
+  display: inline-flex;
+  flex-wrap: wrap;
 }

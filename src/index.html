@@ -75,42 +75,33 @@
   <h3 class="title is-3">Week schedule</h3>
   <div class="mainInputContainer">
     <div class="inputContainer">
-      <input class="input" id="mondayInput" type="date" placeholder="Insert date">
-      <button class="button" id="submitMonday">Monday(I)</button>
-    </div>
-    <div class="inputContainer">
-      <input class="input" id="tuesdayInput" type="date" placeholder="Insert date">
-      <button class="button" id="submitTuesday">Tuesday(II)</button>
-    </div>
-    <div class="inputContainer">
-      <input class="input" id="wednesdayInput" type="date" placeholder="Insert date">
-      <button class="button" id="submitWednesday">Wednesday(III)</button>
-    </div>
-    <div class="inputContainer">
-      <input class="input" id="thursdayInput" type="date" placeholder="Insert date">
-      <button class="button" id="submitThursday">Thursday(IV)</button>
-    </div>
-    <div class="inputContainer">
-      <input class="input" id="fridayInput" type="date" placeholder="Insert date">
-      <button class="button" id="submitFriday">Friday(V)</button>
-    </div>
-    <div class="inputContainer">
-      <input class="input" id="saturdayInput" type="date" placeholder="Insert date">
-      <button class="button" id="submitMonday">Saturday(VI*)</button>
-      <button class="button" id="totalWeek">Week estimate</button>
+      <input class="input" id="dayInput" type="date" placeholder="Insert date">
     </div>
   </div>
   <table id="mondayTable">
       <thead>
+          <tr id="mondayDate">
+
+          </tr>
         <tr>
-          <th class="itemInfo">Item Name</th>
+          <th class="itemInfo">Item name</th>
           <th class="itemInfo">Item Code</th>
           <th class="itemInfo">Item Dimension</th>
-          <th class="itemInfo">Item Quantity</th>
+          <th class="itemInfo">Item quantity</th>
           <th class="itemInfo">Total Price</th>
         </tr>
+
+          <tr>
+              <th class="itemInfo" id="dropDownHere"></th>
+              <th class="itemInfo" id="dropDownCode"></th>
+              <th class="itemInfo" id="dropDownDimension"></th>
+              <th class="itemInfo"><input class="input" id="dropDownQuantity" type="number" placeholder="Insert number"></th>
+              <th class="itemInfo" id="dropDownPrice"></th>
+              <th><button class="button" id="addWeekEntry">Submit</button></th>
+            </tr>
       </thead>
     </table>
+   <div id="tableContainer"></div>
   <script src="index.js"></script>
 </body>
 

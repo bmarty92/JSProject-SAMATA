@@ -1,5 +1,7 @@
 const mainInfoArray = [];
 const itemInfoArray = [];
+const weekDateArray = [];
+
 
 const select = selector => document.querySelector(selector);
 
@@ -55,12 +57,12 @@ const createItemTable = () => {
     select('#itemTable').appendChild(tableBody);
   }
 };
-const clearItemFooter =() => {
+const clearItemFooter = () => {
   const selectedTfoot = select('#itemTable tfoot');
   if (selectedTfoot) {
     selectedTfoot.innerHTML = '';
-  } 
-}
+  }
+};
 const createItemInfo = () => {
   const itemName = select('#itemName').value;
   const itemCode = select('#itemCode').value;
@@ -78,17 +80,25 @@ const createItemInfo = () => {
       totalPrice: itemQuantity * itemPrice,
     });
     drawItemInfo();
-  };
-}
+  }
+};
 const drawItemInfo = () => {
 
   createItemTable();
   clearItemFooter();
 
-  const tableFooter = createElement({tag:'tfoot'});
-  const tableFooterRow = createElement({tag:'tr'});  
-  const wholePriceTextTd = createElement({tag:'td'});  
-  const wholePriceNumberTd = createElement({tag:'td'});  
+  const tableFooter = createElement({
+    tag: 'tfoot',
+  });
+  const tableFooterRow = createElement({
+    tag: 'tr',
+  });
+  const wholePriceTextTd = createElement({
+    tag: 'td',
+  });
+  const wholePriceNumberTd = createElement({
+    tag: 'td',
+  });
   wholePriceTextTd.innerHTML = 'All price';
   wholePriceNumberTd.innerHTML = itemInfoArray.reduce((result, value) => result + value.totalPrice, 0);
   tableFooterRow.appendChild(wholePriceTextTd);
@@ -97,13 +107,27 @@ const drawItemInfo = () => {
   select('#itemTable tfoot').appendChild(tableFooterRow);
 
   itemInfoArray.forEach((element, index) => {
-    const tableRow = createElement({tag:'tr'});
-    const itemNameTd = createElement({tag:'td'});
-    const itemCodeTd = createElement({tag:'td'});
-    const itemDimensionTd = createElement({tag:'td'});
-    const itemQuantityTd = createElement({tag:'td'});
-    const itemPriceTd = createElement({tag:'td'});
-    const totalPriceTd = createElement({tag:'td'});
+    const tableRow = createElement({
+      tag: 'tr',
+    });
+    const itemNameTd = createElement({
+      tag: 'td',
+    });
+    const itemCodeTd = createElement({
+      tag: 'td',
+    });
+    const itemDimensionTd = createElement({
+      tag: 'td',
+    });
+    const itemQuantityTd = createElement({
+      tag: 'td',
+    });
+    const itemPriceTd = createElement({
+      tag: 'td',
+    });
+    const totalPriceTd = createElement({
+      tag: 'td',
+    });
 
     itemNameTd.innerHTML = element.nameOfItem;
     itemCodeTd.innerHTML = element.codeOfItem;
@@ -121,6 +145,172 @@ const drawItemInfo = () => {
   });
 };
 
+const removeDropDown = () => {
+
+  const dropDown = select('#dropDownHere select');
+  if (dropDown) {
+    select('#dropDownHere').removeChild(dropDown);
+  }
+};
+
+select('#dayInput').addEventListener('change', () => {
+  removeDropDown();
+  const dropDown = createElement({
+    tag: 'select',
+  });
+
+  const selectedDropdownQuantityField = select('#dropDownQuantity');
+  select('#dropDownHere').appendChild(dropDown);
+  itemInfoArray.forEach((element, index) => {
+    const dropDownItem = createElement({
+      tag: 'option',
+    });
+    dropDownItem.innerHTML = element.nameOfItem;
+    dropDown.appendChild(dropDownItem);
+  });
+
+  dropDown.addEventListener('change', (e) => {
+    const foundValue = itemInfoArray.find(element => e.target.value === element.nameOfItem);
+    const dropDownDimension = select('#dropDownDimension');
+    const dropDownCode = select('#dropDownCode');
+    dropDownDimension.innerHTML = foundValue.dimensionOfItem;
+    dropDownCode.innerHTML = foundValue.codeOfItem;
+    select('#dropDownPrice').innerHTML = '';
+    select('#dropDownQuantity').value = '';
+  });
+
+  selectedDropdownQuantityField.addEventListener('change', (e) => {
+    console.log(e);
+    const dropDownQuantity = select('#dropDownQuantity').value;
+    const currentItemName = dropDown.value;
+    const foundValue = itemInfoArray.find(element => currentItemName === element.nameOfItem);
+    const price = dropDownQuantity * foundValue.priceOfItem;
+    const totalPrice = select('#dropDownPrice');
+    totalPrice.innerHTML = price;
+  });
+  dropDown.selectedIndex = -1;
+});
+
+const createWeekTable = () => {
+  select('#tableContainer').innerHTML = '';
+  const weekTableId = select('#dayInput').value;
+  const infoRowId = select('#dayInput').value + 'a';
+  const tableHeadElements = ['Item Name', 'Item Code', 'Item Dimension', 'Item Quantity', 'Item Price'];
+  
+  weekDateArray.forEach((element, index)=> {
+    
+         const weekTable = createElement({
+          tag: 'table',
+         });
+        weekTable.id = weekTableId;
+        const tableHeader = createElement({
+          tag: 'thead',
+        });
+        const dateRow = createElement({
+          tag: 'tr',
+        });
+        const infoRow = createElement({
+          tag: 'tr',
+        });
+        const dateTd = createElement({
+          tag: 'th',
+        });
+        dateTd.textContent = element.date;
+        tableHeader.appendChild(dateRow.appendChild(dateTd));
+        tableHeader.appendChild(infoRow);
+        weekTable.appendChild(tableHeader);
+        tableHeadElements.forEach(label => {
+          const th = createElement({tag: 'th', innerHTML: label});
+          infoRow.appendChild(th);
+        });
+        element.data.forEach(data => {
+          const tableBody = createElement({
+            tag: 'tbody',
+          });
+          const itemDataRow = createElement({
+            tag: 'tr',
+          });
+          const itemNameTd = createElement({
+            tag: 'td',
+          });
+          const itemCodeTd = createElement({
+            tag: 'td',
+          });
+          const itemDimensionTd = createElement({
+            tag: 'td',
+          });
+          const itemQuantityTd = createElement({
+            tag: 'td',
+          });
+          const itemTotalPriceTd = createElement({
+            tag: 'td',
+          });
+          itemNameTd.textContent = data.itemName;
+          itemCodeTd.textContent = data.itemCode;
+          itemDimensionTd.textContent = data.itemDimension;
+          itemQuantityTd.textContent = data.itemQuantity;
+          itemTotalPriceTd.textContent = data.totalPrice;
+          tableBody.appendChild(itemDataRow);
+          itemDataRow.appendChild(itemNameTd);
+          itemDataRow.appendChild(itemCodeTd);
+          itemDataRow.appendChild(itemDimensionTd);
+          itemDataRow.appendChild(itemQuantityTd);
+          itemDataRow.appendChild(itemTotalPriceTd);
+          weekTable.appendChild(tableBody);
+        });
+          const itemTableFooter = createElement({
+            tag: 'tfoot',
+          });
+          const tableFooterRow = createElement({
+            tag: 'tr',
+          });
+          const wholePriceTextTd = createElement({
+            tag: 'td',
+          });
+          const wholePriceNumberTd = createElement({
+            tag: 'td',
+          });
+          itemTableFooter.appendChild(tableFooterRow);
+          tableFooterRow.appendChild(wholePriceTextTd);
+          tableFooterRow.appendChild(wholePriceNumberTd);
+          weekTable.appendChild(itemTableFooter);
+          wholePriceTextTd.textContent = 'Total';
+          wholePriceNumberTd.textContent  = element.data.reduce((result, value)=>
+          result + Number(value.totalPrice), 0);
+          select('#tableContainer').appendChild(weekTable);
+      });
+    }
+    
+  
+const createWeekEntry = () => {
+  const dayDate = select('#dayInput').value;
+  const dayItemName = select('select').value;
+  const dayItemCode = select('#dropDownCode').innerHTML;
+  const dayItemDimension = select('#dropDownDimension').innerHTML;
+  const dayItemQuantity = select('#dropDownQuantity').value;
+  const dayItemTotalPrice = select('#dropDownPrice').innerHTML;
+  const weekData = [];
+  const checkIndex = weekDateArray.findIndex(element => element.date === dayDate);
+  console.log(checkIndex);
+  weekData.push({
+    itemName: dayItemName,
+    itemCode: dayItemCode,
+    itemDimension: dayItemDimension,
+    itemQuantity: dayItemQuantity,
+    totalPrice: dayItemTotalPrice,
+  });
+  if (checkIndex === -1) {
+    weekDateArray.push({
+      date: dayDate,
+      data: weekData,
+    });
+    console.log(weekDateArray);
+  } else {
+    weekDateArray[checkIndex].data = [...weekDateArray[checkIndex].data, ...weekData];
+  }
+createWeekTable();
+};
+
 function starterFunction(action) {
   switch (action) {
     case 'submitObjData':
@@ -134,6 +324,14 @@ function starterFunction(action) {
     case 'submitMonday':
       createMondayTable();
       break;
+    case 'addWeekEntry':
+      const selectedOption = select('select').options.selectedIndex;
+      const option = select('select').options[selectedOption];
+      if (select('#dropDownQuantity').value > 0 && !option.disabled) {
+        option.disabled = true;
+        createWeekEntry();
+      }
+
     default:
       break;
   }
