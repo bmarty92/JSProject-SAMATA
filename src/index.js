@@ -1,7 +1,7 @@
 const mainInfoArray = [];
 const itemInfoArray = [];
 const weekDateArray = [];
-
+const mechanismArray = [];
 
 const select = selector => document.querySelector(selector);
 
@@ -196,92 +196,95 @@ const createWeekTable = () => {
   const weekTableId = select('#dayInput').value;
   const infoRowId = select('#dayInput').value + 'a';
   const tableHeadElements = ['Item Name', 'Item Code', 'Item Dimension', 'Item Quantity', 'Item Price'];
-  
-  weekDateArray.forEach((element, index)=> {
-    
-         const weekTable = createElement({
-          tag: 'table',
-         });
-        weekTable.id = weekTableId;
-        const tableHeader = createElement({
-          tag: 'thead',
-        });
-        const dateRow = createElement({
-          tag: 'tr',
-        });
-        const infoRow = createElement({
-          tag: 'tr',
-        });
-        const dateTd = createElement({
-          tag: 'th',
-        });
-        dateTd.textContent = element.date;
-        tableHeader.appendChild(dateRow.appendChild(dateTd));
-        tableHeader.appendChild(infoRow);
-        weekTable.appendChild(tableHeader);
-        tableHeadElements.forEach(label => {
-          const th = createElement({tag: 'th', innerHTML: label});
-          infoRow.appendChild(th);
-        });
-        element.data.forEach(data => {
-          const tableBody = createElement({
-            tag: 'tbody',
-          });
-          const itemDataRow = createElement({
-            tag: 'tr',
-          });
-          const itemNameTd = createElement({
-            tag: 'td',
-          });
-          const itemCodeTd = createElement({
-            tag: 'td',
-          });
-          const itemDimensionTd = createElement({
-            tag: 'td',
-          });
-          const itemQuantityTd = createElement({
-            tag: 'td',
-          });
-          const itemTotalPriceTd = createElement({
-            tag: 'td',
-          });
-          itemNameTd.textContent = data.itemName;
-          itemCodeTd.textContent = data.itemCode;
-          itemDimensionTd.textContent = data.itemDimension;
-          itemQuantityTd.textContent = data.itemQuantity;
-          itemTotalPriceTd.textContent = data.totalPrice;
-          tableBody.appendChild(itemDataRow);
-          itemDataRow.appendChild(itemNameTd);
-          itemDataRow.appendChild(itemCodeTd);
-          itemDataRow.appendChild(itemDimensionTd);
-          itemDataRow.appendChild(itemQuantityTd);
-          itemDataRow.appendChild(itemTotalPriceTd);
-          weekTable.appendChild(tableBody);
-        });
-          const itemTableFooter = createElement({
-            tag: 'tfoot',
-          });
-          const tableFooterRow = createElement({
-            tag: 'tr',
-          });
-          const wholePriceTextTd = createElement({
-            tag: 'td',
-          });
-          const wholePriceNumberTd = createElement({
-            tag: 'td',
-          });
-          itemTableFooter.appendChild(tableFooterRow);
-          tableFooterRow.appendChild(wholePriceTextTd);
-          tableFooterRow.appendChild(wholePriceNumberTd);
-          weekTable.appendChild(itemTableFooter);
-          wholePriceTextTd.textContent = 'Total';
-          wholePriceNumberTd.textContent  = element.data.reduce((result, value)=>
-          result + Number(value.totalPrice), 0);
-          select('#tableContainer').appendChild(weekTable);
+
+  weekDateArray.forEach((element, index) => {
+
+    const weekTable = createElement({
+      tag: 'table',
+    });
+    weekTable.id = weekTableId;
+    const tableHeader = createElement({
+      tag: 'thead',
+    });
+    const dateRow = createElement({
+      tag: 'tr',
+    });
+    const infoRow = createElement({
+      tag: 'tr',
+    });
+    const dateTd = createElement({
+      tag: 'th',
+    });
+    dateTd.textContent = element.date;
+    tableHeader.appendChild(dateRow.appendChild(dateTd));
+    tableHeader.appendChild(infoRow);
+    weekTable.appendChild(tableHeader);
+    tableHeadElements.forEach(label => {
+      const th = createElement({
+        tag: 'th',
+        innerHTML: label
       });
-    }
-    
-  
+      infoRow.appendChild(th);
+    });
+    element.data.forEach(data => {
+      const tableBody = createElement({
+        tag: 'tbody',
+      });
+      const itemDataRow = createElement({
+        tag: 'tr',
+      });
+      const itemNameTd = createElement({
+        tag: 'td',
+      });
+      const itemCodeTd = createElement({
+        tag: 'td',
+      });
+      const itemDimensionTd = createElement({
+        tag: 'td',
+      });
+      const itemQuantityTd = createElement({
+        tag: 'td',
+      });
+      const itemTotalPriceTd = createElement({
+        tag: 'td',
+      });
+      itemNameTd.textContent = data.itemName;
+      itemCodeTd.textContent = data.itemCode;
+      itemDimensionTd.textContent = data.itemDimension;
+      itemQuantityTd.textContent = data.itemQuantity;
+      itemTotalPriceTd.textContent = data.totalPrice;
+      tableBody.appendChild(itemDataRow);
+      itemDataRow.appendChild(itemNameTd);
+      itemDataRow.appendChild(itemCodeTd);
+      itemDataRow.appendChild(itemDimensionTd);
+      itemDataRow.appendChild(itemQuantityTd);
+      itemDataRow.appendChild(itemTotalPriceTd);
+      weekTable.appendChild(tableBody);
+    });
+    const itemTableFooter = createElement({
+      tag: 'tfoot',
+    });
+    const tableFooterRow = createElement({
+      tag: 'tr',
+    });
+    const wholePriceTextTd = createElement({
+      tag: 'td',
+    });
+    const wholePriceNumberTd = createElement({
+      tag: 'td',
+    });
+    itemTableFooter.appendChild(tableFooterRow);
+    tableFooterRow.appendChild(wholePriceTextTd);
+    tableFooterRow.appendChild(wholePriceNumberTd);
+    weekTable.appendChild(itemTableFooter);
+    wholePriceTextTd.textContent = 'Total';
+    wholePriceNumberTd.textContent = element.data.reduce((result, value) =>
+      result + Number(value.totalPrice), 0);
+    select('#tableContainer').appendChild(weekTable);
+  });
+}
+
+
 const createWeekEntry = () => {
   const dayDate = select('#dayInput').value;
   const dayItemName = select('select').value;
@@ -308,8 +311,117 @@ const createWeekEntry = () => {
   } else {
     weekDateArray[checkIndex].data = [...weekDateArray[checkIndex].data, ...weekData];
   }
-createWeekTable();
+
+  createWeekTable();
 };
+const footerCleaner = () => {
+  const selectedTfoot = select('#mechTableHead tfoot');
+  if (selectedTfoot) {
+    selectedTfoot.innerHTML = '';
+  }
+}
+
+
+
+const tableCleaner = () => {
+  const existingTbody = select('#mechTableHead tbody');
+  if (existingTbody) {
+    existingTbody.innerHTML = '';
+  } else {
+    const mechBody = createElement({
+      tag: 'tbody',
+    });
+    select('#mechTableHead').appendChild(mechBody);
+  }
+};
+
+
+const createMechanismTable = () => {
+  footerCleaner();
+  tableCleaner();
+
+  const mechFoot = createElement({
+    tag: 'tfoot',
+  });
+  const mechFootRow = createElement({
+    tag: 'tr',
+  });
+  const mechPriceTextTd = createElement({
+    tag: 'td',
+  });
+  const mechPriceValueTd = createElement({
+    tag: 'td',
+  });
+
+  mechPriceTextTd.innerHTML = 'Total Price';
+  mechPriceValueTd.innerHTML = mechanismArray.reduce((result, value) => result + value.totalPrice, 0);
+  mechFootRow.appendChild(mechPriceTextTd);
+  mechFootRow.appendChild(mechPriceValueTd);
+  select('#mechTableHead').appendChild(mechFoot);
+  select('#mechTableHead tfoot').appendChild(mechFootRow);
+
+
+  mechanismArray.forEach((element, index) => {
+    const mechBody = createElement({
+      tag: 'tbody',
+    });
+    const mechRow = createElement({
+      tag: 'tr',
+    });
+    const nameTd = createElement({
+      tag: 'td',
+    });
+    const companyTd = createElement({
+      tag: 'td',
+    });
+    const useTimeTd = createElement({
+      tag: 'td',
+    });
+    const mechPriceTd = createElement({
+      tag: 'td',
+    });
+    const mechTotalPriceTd = createElement({
+      tag: 'td',
+    });
+
+    nameTd.innerHTML = element.mechanismName;
+    companyTd.innerHTML = element.providingCompany;
+    useTimeTd.innerHTML = element.usageTime;
+    mechPriceTd.innerHTML = element.price;
+    mechTotalPriceTd.innerHTML = element.totalPrice;
+    mechRow.appendChild(nameTd);
+    mechRow.appendChild(companyTd);
+    mechRow.appendChild(useTimeTd);
+    mechRow.appendChild(mechPriceTd);
+    mechRow.appendChild(mechTotalPriceTd);
+    select('#mechTableHead tbody').appendChild(mechRow);
+
+
+
+
+  });
+
+
+};
+const createMechanismInfo = () => {
+  const mechName = select('#mechName').value;
+  const mechCompany = select('#mechProvidingCompany').value;
+  const mechUseTime = select('#mechUseTime').value;
+  const mechPrice = select('#mechPrice').value;
+  const existingMechanism = mechanismArray.some(mechanism => mechanism.mechanismName === mechName);
+  if (!existingMechanism) {
+    mechanismArray.push({
+      mechanismName: mechName,
+      providingCompany: mechCompany,
+      usageTime: mechUseTime,
+      price: mechPrice,
+      totalPrice: mechUseTime * mechPrice,
+    })
+  }
+  console.log(mechanismArray);
+  createMechanismTable();
+
+}
 
 function starterFunction(action) {
   switch (action) {
@@ -331,7 +443,9 @@ function starterFunction(action) {
         option.disabled = true;
         createWeekEntry();
       }
-
+    case 'submitMechData':
+      createMechanismInfo();
+      break;
     default:
       break;
   }

@@ -79,29 +79,64 @@
     </div>
   </div>
   <table id="mondayTable">
-      <thead>
-          <tr id="mondayDate">
+    <thead>
+      <tr id="mondayDate">
 
-          </tr>
-        <tr>
-          <th class="itemInfo">Item name</th>
-          <th class="itemInfo">Item Code</th>
-          <th class="itemInfo">Item Dimension</th>
-          <th class="itemInfo">Item quantity</th>
-          <th class="itemInfo">Total Price</th>
-        </tr>
+      </tr>
+      <tr>
+        <th class="itemInfo">Item name</th>
+        <th class="itemInfo">Item Code</th>
+        <th class="itemInfo">Item Dimension</th>
+        <th class="itemInfo">Item quantity</th>
+        <th class="itemInfo">Total Price</th>
+      </tr>
 
-          <tr>
-              <th class="itemInfo" id="dropDownHere"></th>
-              <th class="itemInfo" id="dropDownCode"></th>
-              <th class="itemInfo" id="dropDownDimension"></th>
-              <th class="itemInfo"><input class="input" id="dropDownQuantity" type="number" placeholder="Insert number"></th>
-              <th class="itemInfo" id="dropDownPrice"></th>
-              <th><button class="button" id="addWeekEntry">Submit</button></th>
-            </tr>
-      </thead>
-    </table>
-   <div id="tableContainer"></div>
+      <tr>
+        <th class="itemInfo" id="dropDownHere"></th>
+        <th class="itemInfo" id="dropDownCode"></th>
+        <th class="itemInfo" id="dropDownDimension"></th>
+        <th class="itemInfo">
+          <input class="input" id="dropDownQuantity" type="number" placeholder="Insert number">
+        </th>
+        <th class="itemInfo" id="dropDownPrice"></th>
+        <th>
+          <button class="button" id="addWeekEntry">Submit</button>
+        </th>
+      </tr>
+    </thead>
+  </table>
+  <div id="tableContainer"></div>
+  <span id="weekItemsTotal"></span>
+
+  <div class="mainInputContainer">
+    <div class="inputContainer">
+      <input class="input" id="mechName" type="text" placeholder="Mechanism name">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="mechProvidingCompany" type="text" placeholder="Providing company">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="mechUseTime" type="number" placeholder="Usage Time">
+    </div>
+    <div class="inputContainer">
+      <input class="input" id="mechPrice" type="number" placeholder="Mechanism Price">
+    </div>
+    <div class="inputContainer">
+      <button class="button" id="submitMechData">Submit entries</button>
+    </div>
+  </div>
+  <table id="mechTableHead">
+    <thead>
+      <tr>
+        <th>Mechanism Name</th>
+        <th>Providing company</th>
+        <th>Usage Time</th>
+        <th>Mechanism price</th>
+        <th>Total price</th>
+      </tr>
+    </thead>
+  </table>
+
   <script src="index.js"></script>
 </body>
 
